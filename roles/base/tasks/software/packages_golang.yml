@@ -1,0 +1,5 @@
+- name: system setup | install golang
+  tags: golang,packages,go
+  package:
+    name: golang-go
+    state: latest

@@ -1,0 +1,35 @@
+- name: system setup | locale | add ru_RU
+  tags: locale, system, setup
+  locale_gen:
+    name: ru_RU.UTF-8
+    state: present
+
+- name: system setup | locale | add en_US
+  tags: locale, system, setup
+  locale_gen:
+    name: en_US.UTF-8
+    state: present
+
+- name: system setup | locale | set locale to ru_RU
+  tags: locale, system, setup
+  locale_gen:
+    name: ru_RU.UTF-8
+    state: present
+  register: locale_ru
+
+- name: system setup | locale | set locale to en_US
+  tags: locale, system, setup
+  locale_gen:
+    name: en_US.UTF-8
+    state: present
+  register: locale_en
+
+- name: system setup | locale | set ru_RU as default locale
+  tags: locale, system, setup
+  command: localectl set-locale LANG=ru_RU.UTF-8
+  when: locale_ru.changed
+
+- name: system setup | locale | set en_US as default locale
+  tags: locale, system, setup
+  command: localectl set-locale LANG=en_US.UTF-8
+  when: locale_en.changed

@@ -1,0 +1,60 @@
+- name: system setup | docker installation | install dependencies
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  loop:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg-agent
+    - software-properties-common
+
+- name: system setup | docker installation | add GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: system setup | docker installation | add docker repository to apt
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+
+- name: system setup | docker installation | install docker
+  apt:
+    name: "{{item}}"
+    state: latest
+    update_cache: yes
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- name: system setup | docker installation | check docker is active
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: system setup | docker installation | ensure group "docker" exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: system setup | docker installation | adding ubuntu to docker group
+  user:
+    name: ubuntu
+    groups: docker
+    append: yes
+
+- name: system setup | docker installation | install docker-compose
+  get_url:
+    url: https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: 'u+x,g+x'
+
+- name: system setup | docker installation | change file ownership, group and permissions
+  ansible.builtin.file:
+    path: /usr/local/bin/docker-compose
+    owner: ubuntu
+    group: ubuntu 

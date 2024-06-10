@@ -1,0 +1,16 @@
+- name: system setup | utilities | install utility packages
+  tags: packages,system,settings
+  package:
+    state: latest
+    name:
+      - git
+      - curl
+      - "{{ dns_utils_package}}"
+      - htop
+      - lsof
+      - neofetch
+      - net-tools
+      - tmux
+      - wget
+      - whois
+      - zsh

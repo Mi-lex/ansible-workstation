@@ -1,0 +1,24 @@
+# Load distro-specific variables
+- include_vars: "{{ ansible_distribution }}.yml"
+  tags: always
+
+- block:
+  # install software
+  - import_tasks: software/repositories.yml
+  - import_tasks: software/packages_dev_py.yml
+  - import_tasks: software/packages_golang.yml
+  - import_tasks: software/packages_utilities.yml
+
+  - include_tasks: "software/packages_docker_{{ ansible_distribution }}.yml"
+    when: ansible_distribution == "Ubuntu"
+
+  # Perform remaining tasks:
+  - import_tasks: system_setup/clock.yml
+  - import_tasks: system_setup/cron.yml
+  - import_tasks: system_setup/locale.yml
+  - import_tasks: system_setup/logging.yml
+  - import_tasks: system_setup/openssh.yml
+  - import_tasks: system_setup/scripts.yml
+
+  rescue:
+    - set_fact: task_failed=true

@@ -1,0 +1,16 @@
+# Desktop
+# Note: Some of these packages are disabled, they depend on tracker which is currently being disabled
+- name: gnome | packages | install gnome packages
+  tags: 
+  - gnome
+  - gnome-packages
+  package:
+    name:
+      - gnome-tweaks
+
+- name: gnome | packages | install flatpak support in gnome software
+  tags: gnome,gnome-packages
+  package:
+    name:
+    - gnome-software-plugin-flatpak
+  when: ansible_distribution in ["Debian", "Ubuntu"]
