@@ -1,0 +1,43 @@
+- name: users | milex | create group
+  tags: groups,milex,users
+  group:
+    name: milex
+    state: present
+
+- name: users | milex | create user
+  tags: milex,sudo,users
+  user:
+    name: milex
+    group: milex
+    groups: adm,{{ sudo_group }}
+    state: present
+    comment: "Milex LaCroix"
+    password: "{{ milex_passwd }}"
+    shell: /bin/bash
+
+- name: users | milex | milex | add sudoers file
+  tags: milex,settings,simone,sudo,system,users
+  copy:
+    src: users/sudoers_milex
+    dest: /etc/sudoers.d/milex
+    owner: root
+    group: root
+    mode: 0440
+
+# - name: users | milex | checkout git repositories
+#   tags: git,users,milex
+#   become: yes
+#   git:
+#     repo: "{{ item.repo }}"
+#     dest: "{{ item.dest }}"
+#     force: yes
+#   with_items:
+#     - { repo: 'https://github.com/ctrlpvim/ctrlp.vim.git', dest: '/home/milex/.vim/bundle/ctrlp.vim' }
+#     - { repo: 'https://github.com/davidhalter/jedi-vim.git', dest: '/home/milex/.vim/bundle/jedi-vim' }
+#     - { repo: 'https://github.com/pearofducks/ansible-vim', dest: '/home/milex/.vim/bundle/ansible-vim' }
+#     - { repo: 'https://github.com/rhysd/vim-grammarous.git', dest: '/home/milex/.vim/bundle/vim-grammarous' }
+#     - { repo: 'https://github.com/ron89/thesaurus_query.vim', dest: '/home/milex/.vim/bundle/thesaurus_query' }
+#     - { repo: 'https://github.com/scrooloose/nerdtree.git', dest: '/home/milex/.vim/bundle/nerdtree' }
+#     - { repo: 'https://github.com/tpope/vim-obsession.git', dest: '/home/milex/.vim/bundle/vim-obsession' }
+#     - { repo: 'https://github.com/vim-syntastic/syntastic.git', dest: '/home/milex/.vim/bundle/syntastic' }
+#   notify: update_vim_bundle_perms
