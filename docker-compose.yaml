@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  ansible-test:
+    build: .
+    entrypoint: ["sh", "-c", "ansible-playbook -i hosts --connection=local /app/local.yaml --tags packages,oh-my-zsh --skip-tags golang,docker,python,gnome && tail -f /dev/null"]
+    tty: true
