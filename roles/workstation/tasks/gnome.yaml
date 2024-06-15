@@ -4,6 +4,7 @@
   tags: 
   - gnome
   - gnome-packages
+  - workstation
   package:
     name:
       - gnome-tweaks

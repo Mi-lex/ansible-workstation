@@ -1,5 +1,7 @@
 - name: software | flameshot | install package
-  tags: pcakges,flameshot,workstation-packages
+  tags:
+  - flameshot
+  - workstation
   package:
     state: latest
     name: flameshot

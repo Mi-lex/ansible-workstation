@@ -1,5 +1,7 @@
 - name: system setup | clock | install systemd-timesyncd (ubuntu)
-  tags: ntp,system setup
+  tags: 
+    - ntp
+    - system setup
   package:
     name: systemd-timesyncd
     state: latest
