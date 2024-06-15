@@ -1,4 +1,5 @@
 - name: system setup | docker installation | install dependencies
+  tags: docker
   apt:
     name: "{{item}}"
     state: present
@@ -11,16 +12,19 @@
     - software-properties-common
 
 - name: system setup | docker installation | add GPG key
+  tags: docker
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
 - name: system setup | docker installation | add docker repository to apt
+  tags: docker
   apt_repository:
     repo: deb https://download.docker.com/linux/ubuntu bionic stable
     state: present
 
 - name: system setup | docker installation | install docker
+  tags: docker
   apt:
     name: "{{item}}"
     state: latest
@@ -31,30 +35,35 @@
     - containerd.io
 
 - name: system setup | docker installation | check docker is active
+  tags: docker
   service:
     name: docker
     state: started
     enabled: yes
 
 - name: system setup | docker installation | ensure group "docker" exists
+  tags: docker
   ansible.builtin.group:
     name: docker
     state: present
 
-- name: system setup | docker installation | adding ubuntu to docker group
+- name: system setup | docker installation | adding user to docker group
+  tags: docker
   user:
-    name: ubuntu
+    name: milex
     groups: docker
     append: yes
 
 - name: system setup | docker installation | install docker-compose
+  tags: docker
   get_url:
     url: https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64
     dest: /usr/local/bin/docker-compose
     mode: 'u+x,g+x'
 
 - name: system setup | docker installation | change file ownership, group and permissions
+  tags: docker
   ansible.builtin.file:
     path: /usr/local/bin/docker-compose
-    owner: ubuntu
-    group: ubuntu 
+    owner: milex
+    group: docker
