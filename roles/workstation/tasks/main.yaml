@@ -2,5 +2,13 @@
 - include_vars: "{{ ansible_distribution }}.yaml"
   tags: always
 
-- include_tasks: gnome.yaml
-  when: gnome is defined and gnome == true
+- block:
+  - include_tasks: gnome.yaml
+    when: gnome is defined and gnome == true
+
+  - import_tasks: software/virtualbox.yaml
+  - import_tasks: software/oh-my-zsh.yaml
+  - import_tasks: software/zoxide.yaml
+
+  rescue:
+  - set_fact: task_failed=true

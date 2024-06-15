@@ -1,0 +1,10 @@
+
+# Desktop
+# Note: Some of these packages are disabled, they depend on tracker which is currently being disabled
+- name: workstation | oh-my-zsh
+  tags:
+    - workstation
+    - oh-my-zsh
+  shell: "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
+  args:
+    executable: /bin/bash
