@@ -1,10 +1,98 @@
 
+
 # Desktop
 # Note: Some of these packages are disabled, they depend on tracker which is currently being disabled
-- name: workstation | oh-my-zsh
+- name: workstation | install zsh
   tags:
     - workstation
     - oh-my-zsh
-  shell: "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
-  args:
-    executable: /bin/bash
+    - zsh
+  package:
+    name: zsh
+    state: present
+
+- name: workstation | install Oh My Zsh
+  tags:
+    - workstation
+    - oh-my-zsh
+  git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: ~/.oh-my-zsh
+    depth: 1
+  become: yes
+  become_user: milex
+
+- name: workstation | Override powerline fonts package name for Debian.
+  tags:
+    - workstation
+    - oh-my-zsh
+  ansible.builtin.set_fact:
+    powerlinefonts: fonts-powerline
+  when: ansible_os_family == 'Debian'
+
+- name: workstation | install powerline fonts
+  tags:
+    - workstation
+    - oh-my-zsh
+    - powerline-fonts
+  package:
+    state: present
+    name: "{{ powerlinefonts }}"
+
+- name: workstation | install zsh-autosuggestions plugin
+  tags:
+    - workstation
+    - oh-my-zsh
+    - zsh-plugin-augosuggestion
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    depth: 1
+  become: true
+  become_user: milex
+
+- name: workstation | install zsh-completions plugin
+  tags:
+    - workstation
+    - oh-my-zsh
+    - zsh-plugin-completions
+  git:
+    repo: https://github.com/zsh-users/zsh-completions
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-completions
+    depth: 1
+  become: true
+  become_user: milex
+
+- name: workstation | install zsh-syntax-highlighting plugin
+  tags:
+    - workstation
+    - oh-my-zsh
+    - zsh-plugin-highlighting
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    depth: 1
+  become: true
+  become_user: milex
+
+- name: workstation | install Powerline10k theme
+  tags:
+    - workstation
+    - oh-my-zsh
+    - zsh-theme-powerline10k
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: ~/.oh-my-zsh/custom/themes/powerlevel10k
+    depth: 1
+  become: true
+  become_user: milex
+  
+- name: workstation | change user shell to zsh 
+  tags:
+    - workstation
+    - oh-my-zsh
+    - user-shell
+  become: true
+  user:
+    name: milex
+    shell: /bin/zsh
