@@ -1,0 +1,37 @@
+# Add bare repo
+- name: workstation | Copy dot files
+  tags:
+    - workstation
+    - dot-files
+  git:
+    repo: "{{ dotfiles_repo }}"
+    bare: true
+    dest: "{{ milex_home_dir }}/.doftfiles"
+    depth: 1
+  become: yes
+  become_user: milex
+
+# Copy gitignore
+- name: workstation | copy .gitignore
+  tags:
+    - workstation
+    - dot-files
+  copy:
+    src: dot-files-setup/.gitignore
+    dest: "{{ milex_home_dir }}/.gitignore"
+    owner: milex
+    group: root
+    mode: 0640
+
+- name: workstation | checkout dot files
+  tags:
+    - workstation
+    - dot-files
+  shell: |
+    alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+    cd ~
+    config checkout
+  args:
+    creates: "{{ milex_home_dir }}/README.md"
+  become: yes
+  become_user: milex
