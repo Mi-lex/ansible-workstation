@@ -4,16 +4,16 @@
     name: milex
     state: present
 
-- name: users | milex | create user
-  tags: milex,sudo,users
-  user:
-    name: milex
-    group: milex
-    groups: adm,{{ sudo_group }}
-    state: present
-    comment: "Milex LaCroix"
-    password: "{{ milex_passwd }}"
-    shell: /bin/bash
+# - name: users | milex | create user
+#   tags: milex,sudo,users
+#   user:
+#     name: milex
+#     group: milex
+#     groups: adm,{{ sudo_group }}
+#     state: present
+#     comment: "Milex"
+#     password: "{{ milex_passwd }}"
+#     shell: /bin/bash
 
 - name: users | milex | milex | add sudoers file
   tags: milex,settings,simone,sudo,system,users
