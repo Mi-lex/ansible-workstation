@@ -1,5 +1,7 @@
 - name: system setup | utilities | install utility packages
-  tags: packages,system,settings
+  tags: 
+    - packages
+    - system,settings
   package:
     state: latest
     name:
@@ -13,4 +15,3 @@
       - tmux
       - wget
       - whois
-      - zsh
