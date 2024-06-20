@@ -1,1 +1,3 @@
-milex_passwd: password-hash-goes-here
+ssh_port: 22
+passwd_auth: "no"
+ssh_users: milex
