@@ -1,0 +1,7 @@
+- name: software | slack | install package
+  tags:
+  - slack
+  - workstation
+  package:
+    state: latest
+    name: slack

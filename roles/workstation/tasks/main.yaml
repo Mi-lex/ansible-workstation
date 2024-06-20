@@ -10,6 +10,7 @@
   - import_tasks: software/virtualbox.yaml
   - import_tasks: software/oh-my-zsh.yaml
   - import_tasks: software/zoxide.yaml
+  - import_tasks: software/slack.yaml
 
   rescue:
   - set_fact: task_failed=true
