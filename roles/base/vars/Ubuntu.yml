@@ -9,3 +9,4 @@ python_psutil_package: python3-psutil
 python_pyflakes_package: python3-pyflakes
 python_virtualenv_package: python3-virtualenv
 sudo_group: sudo
+vim_package: vim-nox

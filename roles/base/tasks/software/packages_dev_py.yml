@@ -6,4 +6,5 @@
       - "{{ python_package }}"
       - "{{ python_pip_package }}"
       - "{{ python_pyflakes_package }}"
+      - "{{ vim_package }}"
     state: latest
