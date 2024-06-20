@@ -6,7 +6,7 @@
   git:
     repo: "{{ dotfiles_repo }}"
     bare: true
-    dest: "{{ milex_home_dir }}/.doftfiles"
+    dest: "{{ milex_home_dir }}/.dotfiles"
     depth: 1
   become: yes
   become_user: milex
@@ -27,7 +27,7 @@
     - workstation
     - dot-files
   shell: |
-    alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+    alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
     cd ~
     config checkout
   args:
