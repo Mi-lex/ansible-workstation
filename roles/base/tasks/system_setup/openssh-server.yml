@@ -1,4 +1,4 @@
-- name: system setup | openssh | install or update daemon package
+- name: system setup | openssh-server | install or update daemon package
   tags: 
   - openssh-server
   - ssh
@@ -8,7 +8,7 @@
     state: latest
   notify: restart_sshd
 
-- name: system setup | openssh | enable daemon
+- name: system setup | openssh-server | enable daemon
   tags: 
   - openssh-server
   - ssh
@@ -18,7 +18,7 @@
     enabled: yes
     state: started
 
-- name: system setup | openssh | generate sshd_config file from template
+- name: system setup | openssh-server | generate sshd_config file from template
   tags: 
   - openssh-server
   - ssh
@@ -31,7 +31,7 @@
     mode: 0644
   notify: restart_sshd
 
-- name: system setup | openssh | copy issue.net
+- name: system setup | openssh-server | copy issue.net
   tags: 
   - openssh-server
   - ssh
