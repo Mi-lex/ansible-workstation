@@ -1,0 +1,10 @@
+- name: software | vlc-player | install package
+  tags:
+  - vlc
+  - workstation
+  become: true
+  become_user: milex
+  flatpak:
+    name: org.videolan.VLC
+    method: user
+    state: present
