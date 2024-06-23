@@ -5,6 +5,7 @@
   - system
   stat:
     path: ~/.ssh/{{ item.key_name }}
+  become: true
   become_user: milex
   register: ssh_key_exists
 
@@ -13,6 +14,7 @@
   - github-ssh-keys
   - ssh
   - system
+  become: true
   become_user: milex
   openssh_keypair:
     owner: milex
@@ -22,7 +24,22 @@
     path: "~/.ssh/{{ item.key_name }}"
   when: not ssh_key_exists.stat.exists
 
+- name: Print SSH public key
+  tags: 
+  - github-ssh-keys
+  - ssh
+  - system
+  ansible.builtin.shell: cat ~/.ssh/{{ item.key_name }}.pub
+  become: true
+  become_user: milex
+  register: ssh_key_output
+
 - name: Evaluating the authentication agent & adding the key...
+  tags: 
+  - github-ssh-keys
+  - ssh
+  - system
+  become: true
   become_user: milex
   shell: |
     eval "$(ssh-agent)"
@@ -33,7 +50,6 @@
   - github-ssh-keys
   - ssh
   - system
-  become_user: milex
   uri:
     url: "https://api.github.com/user/keys"
     method: GET
@@ -49,7 +65,6 @@
   - github-ssh-keys
   - ssh
   - system
-  become_user: milex
   uri:
     url: https://api.github.com/user/keys
     method: POST
@@ -59,7 +74,7 @@
     body_format: json
     body:
       title: "{{ ansible_hostname }}_{{ item.name }}"
-      key: "{{ lookup('file', '~/.ssh/{{ item.key_name }}.pub') }}"
+      key: "{{ lookup('file', '/home/milex/.ssh/{{ item.key_name }}.pub') }}"
     return_content: yes
     status_code: 201
   register: github_ssh_key_response
