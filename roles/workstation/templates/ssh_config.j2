@@ -1,0 +1,8 @@
+{% for account in github_accounts %}
+# {{ account.name }} GitHub account: {{ account.email }}
+Host {{ account.host }}
+   HostName github.com
+   IdentityFile ~/.ssh/{{ account.key_name }}
+   IdentitiesOnly yes
+
+{% endfor %}

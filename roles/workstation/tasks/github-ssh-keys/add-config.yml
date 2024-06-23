@@ -1,0 +1,25 @@
+- name: system setup | workstation | ensure .ssh directory exists
+  tags: 
+  - github-ssh-keys
+  - ssh
+  - system
+  file:
+    path: "~/.ssh"
+    state: directory
+    owner: milex
+    mode: 0755
+  become: true
+  become_user: milex
+
+- name: system setup | workstation | generate SSH config from template
+  tags: 
+  - github-ssh-keys
+  - ssh
+  - system
+  template:
+    src: ssh_config.j2
+    dest: ~/.ssh/config
+    owner: milex
+    mode: 0644
+  become: true
+  become_user: milex

@@ -18,3 +18,18 @@ vscode_debian_gpg_key: https://packages.microsoft.com/keys/microsoft.asc
 vscode_debian_repo: "deb [arch={{ ansible_architecture }}] https://packages.microsoft.com/repos/{{ vscode_app_name }} stable main"
 vscode_debian_repo_when_x86_64: "deb [arch=amd64] https://packages.microsoft.com/repos/{{ vscode_app_name }} stable main"
 vscode_debian_repo_filename: vscode
+
+# SSH keys
+github_accounts:
+  # Personal
+  - name: personal
+    key_name: "github_personal_ed25519"
+    email: milex-personal@gmail.com
+    access_token: <personal_access_token>
+    host: github.com
+  # Work
+  - name: work
+    key_name: "github_work_ed25519"
+    email: milex@workin-email.com
+    access_token: <work_access_token>
+    host: github-work

@@ -1,0 +1,65 @@
+- name: system setup | github-ssh-keys | check if github personal ssh key is present
+  tags: 
+  - github-ssh-keys
+  - ssh
+  - system
+  stat:
+    path: ~/.ssh/{{ item.key_name }}
+  become_user: milex
+  register: ssh_key_exists
+
+- name: system setup | github-ssh-keys | generate github persnal ssh key
+  tags: 
+  - github-ssh-keys
+  - ssh
+  - system
+  become_user: milex
+  openssh_keypair:
+    owner: milex
+    mode: 0600
+    comment: "{{ item.email }}"
+    type: ed25519
+    path: "~/.ssh/{{ item.key_name }}"
+  when: not ssh_key_exists.stat.exists
+
+- name: Evaluating the authentication agent & adding the key...
+  become_user: milex
+  shell: |
+    eval "$(ssh-agent)"
+    ssh-add ~/.ssh/{{ item.key_name }}
+
+- name: system setup | github-ssh-keys | get existing SSH keys from GitHub
+  tags: 
+  - github-ssh-keys
+  - ssh
+  - system
+  become_user: milex
+  uri:
+    url: "https://api.github.com/user/keys"
+    method: GET
+    headers:
+      Accept: "application/vnd.github.v3+json"
+      Authorization: "Bearer {{ item.access_token }}"
+      Content-Type: "application/json"
+    status_code: 200, 404
+  register: github_keys
+
+- name: system setup | github-ssh-keys | post ssh key to github
+  tags: 
+  - github-ssh-keys
+  - ssh
+  - system
+  become_user: milex
+  uri:
+    url: https://api.github.com/user/keys
+    method: POST
+    headers:
+      Accept: application/vnd.github+json
+      Authorization: "Bearer {{ item.access_token }}"
+    body_format: json
+    body:
+      title: "{{ ansible_hostname }}_{{ item.name }}"
+      key: "{{ lookup('file', '~/.ssh/{{ item.key_name }}.pub') }}"
+    return_content: yes
+    status_code: 201
+  register: github_ssh_key_response
