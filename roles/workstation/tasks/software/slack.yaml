@@ -2,6 +2,9 @@
   tags:
   - slack
   - workstation
-  package:
-    state: latest
-    name: slack
+  become: true
+  become_user: milex
+  flatpak:
+    name: com.slack.Slack
+    method: user
+    state: present

@@ -2,6 +2,24 @@
   tags:
   - flameshot
   - workstation
-  package:
-    state: latest
-    name: flameshot
+  become: true
+  become_user: milex
+  flatpak:
+    name: org.flameshot.Flameshot
+    method: user
+    state: present
+
+# https://github.com/flameshot-org/flameshot?tab=readme-ov-file#global
+# If you installed Flameshot as a Flatpak, you will need to create a symlink to the command:
+# But there is no path like this after insallation so I comment out the section for now
+
+# - name: software | flameshot | create a symlink
+#   tags:
+#   - flameshot
+#   - workstation
+#   become: true
+#   become_user: milex
+#   file:
+#     src: /var/lib/flatpak/exports/bin/org.flameshot.Flameshot
+#     dest: ~/.local/bin/flameshot
+#     state: link
