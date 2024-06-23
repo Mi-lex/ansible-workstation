@@ -8,10 +8,12 @@
   package:
     name:
       - gnome-tweaks
+    state: present
 
 - name: gnome | packages | install flatpak support in gnome software
   tags: gnome,gnome-packages
   package:
     name:
     - gnome-software-plugin-flatpak
+    state: present
   when: ansible_distribution in ["Debian", "Ubuntu"]
