@@ -7,7 +7,8 @@
     name: flatpak
     state: present
 
-- name: workstation | system setup | add flathub repot
+# https://flathub.org/
+- name: workstation | system setup | add flathub repo
   tags:
     - system-setup
     - flatpak
