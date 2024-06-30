@@ -6,11 +6,15 @@
   # Make sure users exist on the system
   - import_tasks: users/milex.yml
   
-  # install software
-  - import_tasks: software/repositories.yml
-  - import_tasks: software/packages_dev_py.yml
-  - import_tasks: software/packages_golang.yml
-  - import_tasks: software/packages_utilities.yml
+  # install packages
+  - name: install base packages
+    block:
+    - import_tasks: software/repositories.yml
+    - import_tasks: software/packages_dev_py.yml
+    - import_tasks: software/packages_golang.yml
+    - import_tasks: software/packages_utilities.yml
+    tags:
+      - packages
 
   - name: docker installation
     include_tasks: 
@@ -18,15 +22,32 @@
       apply:
         tags: docker
     when: ansible_distribution == "Ubuntu"
-    tags: always
+    tags: docker
 
   # Perform remaining tasks:
-  - import_tasks: system_setup/clock.yml
-  - import_tasks: system_setup/cron.yml
-  - import_tasks: system_setup/locale.yml
-  - import_tasks: system_setup/logging.yml
-  - import_tasks: system_setup/openssh-server.yml
-  - import_tasks: system_setup/scripts.yml
+  - name: setup base system
+    block:
+    - import_tasks: system_setup/scripts.yml
+
+    - import_tasks: system_setup/clock.yml
+      tags: ntp
+
+    - import_tasks: system_setup/cron.yml
+      tags: cron
+
+    - import_tasks: system_setup/locale.yml
+      tags: locale
+
+    - import_tasks: system_setup/logging.yml
+      tags:
+        - logging
+        - journald
+
+    - import_tasks: system_setup/openssh-server.yml
+      tags: 
+        - openssh-server
+    tags:
+      - system-setup
 
   rescue:
     - set_fact: task_failed=true

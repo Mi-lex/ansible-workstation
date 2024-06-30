@@ -1,5 +1,6 @@
 - name: system setup | repositories | install package management tools (debian-based)
-  tags: packages,system,settings
+  tags:
+    - repositories
   package:
     name:
       - aptitude

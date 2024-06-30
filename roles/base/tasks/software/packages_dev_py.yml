@@ -1,10 +1,12 @@
 - name: system setup | pyhon development packages
-  tags: dev,development,python
+  tags:
+    - dev
+    - development
+    - python
   package:
     name:
       - "{{ python_flake8_package }}"
       - "{{ python_package }}"
       - "{{ python_pip_package }}"
       - "{{ python_pyflakes_package }}"
-      - "{{ vim_package }}"
     state: latest

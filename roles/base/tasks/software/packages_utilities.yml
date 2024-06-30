@@ -1,7 +1,6 @@
 - name: system setup | utilities | install utility packages
   tags: 
-    - packages
-    - system,settings
+    - utilities
   package:
     state: latest
     name:
@@ -15,3 +14,4 @@
       - tmux
       - wget
       - whois
+      - "{{ vim_package }}"
