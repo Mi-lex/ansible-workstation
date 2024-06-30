@@ -12,8 +12,13 @@
   - import_tasks: software/packages_golang.yml
   - import_tasks: software/packages_utilities.yml
 
-  - include_tasks: "software/packages_docker_{{ ansible_distribution }}.yml"
+  - name: docker installation
+    include_tasks: 
+      file: "software/packages_docker_{{ ansible_distribution }}.yml"
+      apply:
+        tags: docker
     when: ansible_distribution == "Ubuntu"
+    tags: always
 
   # Perform remaining tasks:
   - import_tasks: system_setup/clock.yml
