@@ -1,0 +1,9 @@
+
+# Note: Some of these packages are disabled, they depend on tracker which is currently being disabled
+- name: workstation | software | fzf
+  tags:
+  - fzf
+  package:
+    state: latest
+    name: 
+      - fzf
