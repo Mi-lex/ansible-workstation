@@ -1,0 +1,20 @@
+- name: workstation | navi | ensure curl is installed
+  tags:
+    - navi
+  apt:
+    name: curl
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: workstation | navi | ensure that fzf is installed
+  tags:
+    - navi
+  apt:
+    name: fzf
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: workstation | navi | execute navi installation script
+  tags:
+    - navi
+  command: bash -c 'BIN_DIR=/usr/local/bin bash <(curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install)'
