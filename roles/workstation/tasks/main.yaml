@@ -22,7 +22,7 @@
     loop: "{{ github_accounts }}"
     tags: always
 
-  # - import_tasks: github-ssh-keys/add-config.yml
+  - import_tasks: github-ssh-keys/add-config.yml
 
   rescue:
   - set_fact: task_failed=true

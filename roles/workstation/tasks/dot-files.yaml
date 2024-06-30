@@ -2,6 +2,7 @@
 - name: workstation | Copy dot files
   tags:
     - workstation
+    - system-setup
     - dot-files
   git:
     repo: "{{ dotfiles_repo }}"
@@ -15,6 +16,7 @@
   tags:
     - workstation
     - dot-files
+    - system-setup
   copy:
     src: dot-files-setup/.gitignore
     dest: "{{ milex_home_dir }}/.gitignore"
@@ -25,6 +27,7 @@
 - name: workstation | checkout dot files
   tags:
     - workstation
+    - system-setup
     - dot-files
   shell: |
     alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
