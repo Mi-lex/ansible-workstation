@@ -1,11 +1,9 @@
 
-# Desktop
 # Note: Some of these packages are disabled, they depend on tracker which is currently being disabled
 - name: workstation | software | zoxide
   tags:
-  - zoxide
-  - workstation
   - system-setup
+  - zoxide
   package:
     state: latest
     name: 

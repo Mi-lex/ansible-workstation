@@ -1,17 +1,11 @@
 # set up flatpak support
 - name: workstation | system setup | install faltpak
-  tags:
-    - system-setup
-    - flatpak
   package:
     name: flatpak
     state: present
 
 # https://flathub.org/
 - name: workstation | system setup | add flathub repo
-  tags:
-    - system-setup
-    - flatpak
   become_user: milex
   flatpak_remote:
     name: flathub

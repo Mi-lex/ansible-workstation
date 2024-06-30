@@ -1,25 +1,16 @@
 ---
 - name: software | vscode | Installing {{ vscode_debian_pre_reqs }} for {{ vscode_app_name }} .
-  tags:
-  - workstation
-  - vscode
   apt:
     name: "{{ vscode_debian_pre_reqs }}"
     state: "{{ vscode_debian_pre_reqs_desired_state }}"
     force_apt_get: yes
 
 - name: software | vscode | Add gpg signing key for {{ vscode_app_name }}
-  tags:
-  - workstation
-  - vscode
   apt_key:
     url: "{{ vscode_debian_gpg_key }}"
     state: present
 
 - name: software | vscode | Adding repository {{ vscode_debian_repo }}
-  tags:
-  - workstation
-  - vscode
   apt_repository:
     repo: "{{ vscode_debian_repo }}"
     state: "{{ vscode_repo_desired_state }}"
@@ -28,9 +19,6 @@
   when: ansible_architecture != 'x86_64'
 
 - name: software | vscode | Adding repository {{ vscode_debian_repo_when_x86_64 }}
-  tags:
-  - workstation
-  - vscode
   apt_repository:
     repo: "{{ vscode_debian_repo_when_x86_64 }}"
     state: "{{ vscode_repo_desired_state }}"
@@ -39,9 +27,6 @@
   when: ansible_architecture == 'x86_64'
 
 - name: software | vscode | Installing {{ vscode_app_name }}
-  tags:
-  - workstation
-  - vscode
   apt:
     name: "{{ vscode_app_name }}"
     state: "{{ vscode_desired_state }}"

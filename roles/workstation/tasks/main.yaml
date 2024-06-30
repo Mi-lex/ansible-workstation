@@ -7,18 +7,33 @@
     when: gnome is defined and gnome == true
 
   - import_tasks: system-setup.yaml
+    tags:
+      - system-setup
+      - flatpak
+  - import_tasks: zoxide.yaml
   - import_tasks: dot-files.yaml
+    tags:
+      - system-setup
+      - dot-files
   - import_tasks: software/vscode.yaml
+    tags:
+      - system-setup
+      - vscode
+
   - import_tasks: software/virtualbox.yaml
   - import_tasks: software/oh-my-zsh.yaml
-  - import_tasks: software/zoxide.yaml
   - import_tasks: software/slack.yaml
   - import_tasks: software/flameshot.yaml
   - import_tasks: software/vlc.yaml
 
-  # Github SSH keys
   - name: Generate ssh keys
-    include_tasks: github-ssh-keys/generate-keys.yml
+    include_tasks: 
+      file: github-ssh-keys/generate-keys.yml
+      apply:
+        tags:
+        - github-ssh-keys
+        - ssh
+        - system
     loop: "{{ github_accounts }}"
     tags: always
 

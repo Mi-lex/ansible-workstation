@@ -1,8 +1,4 @@
 - name: system setup | github-ssh-keys | check if github personal ssh key is present
-  tags: 
-  - github-ssh-keys
-  - ssh
-  - system
   stat:
     path: ~/.ssh/{{ item.key_name }}
   become: true
@@ -10,10 +6,6 @@
   register: ssh_key_exists
 
 - name: system setup | github-ssh-keys | generate github persnal ssh key
-  tags: 
-  - github-ssh-keys
-  - ssh
-  - system
   become: true
   become_user: milex
   openssh_keypair:
@@ -25,20 +17,12 @@
   when: not ssh_key_exists.stat.exists
 
 - name: Print SSH public key
-  tags: 
-  - github-ssh-keys
-  - ssh
-  - system
   ansible.builtin.shell: cat ~/.ssh/{{ item.key_name }}.pub
   become: true
   become_user: milex
   register: ssh_key_output
 
 - name: Evaluating the authentication agent & adding the key...
-  tags: 
-  - github-ssh-keys
-  - ssh
-  - system
   become: true
   become_user: milex
   shell: |
@@ -46,10 +30,6 @@
     ssh-add ~/.ssh/{{ item.key_name }}
 
 - name: system setup | github-ssh-keys | get existing SSH keys from GitHub
-  tags: 
-  - github-ssh-keys
-  - ssh
-  - system
   uri:
     url: "https://api.github.com/user/keys"
     method: GET
@@ -61,10 +41,6 @@
   register: github_keys
 
 - name: system setup | github-ssh-keys | post ssh key to github
-  tags: 
-  - github-ssh-keys
-  - ssh
-  - system
   uri:
     url: https://api.github.com/user/keys
     method: POST

@@ -1,7 +1,6 @@
 - name: software | vlc-player | install package
   tags:
   - vlc
-  - workstation
   become: true
   become_user: milex
   flatpak:

@@ -1,7 +1,6 @@
 - name: software | slack | install package
   tags:
   - slack
-  - workstation
   become: true
   become_user: milex
   flatpak:

@@ -1,7 +1,6 @@
 - name: software | virtualbox | install package
   tags:
   - virtualbox
-  - workstation
   package:
     state: latest
     name: 
