@@ -5,6 +5,7 @@
   tags:
   - zoxide
   - workstation
+  - system-setup
   package:
     state: latest
     name: 
