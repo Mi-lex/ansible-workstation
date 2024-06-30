@@ -17,3 +17,7 @@
     - gnome-software-plugin-flatpak
     state: present
   when: ansible_distribution in ["Debian", "Ubuntu"]
+  register: result
+  until: result is not failed
+  retries: 5
+  delay: 5
