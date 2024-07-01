@@ -17,6 +17,7 @@
     tags:
       - system-setup
       - dot-files
+      - dotfiles
   - import_tasks: software/vscode.yaml
     tags:
       - system-setup
