@@ -6,3 +6,17 @@
   service:
     name: "{{ openssh_service }}"
     state: restarted
+
+- name: update_tmux_plugin_perms
+  file:
+    path: /home/milex/.tmux/plugins
+    owner: milex
+    group: milex
+    recurse: true
+
+- name: update_vim_bundle_perms
+  file:
+    path: /home/milex/.vim/bundle
+    owner: milex
+    group: milex
+    recurse: true
