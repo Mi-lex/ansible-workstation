@@ -1,3 +1,4 @@
 ssh_port: 22
 passwd_auth: "no"
 ssh_users: milex
+nvm_version: v0.39.7

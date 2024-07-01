@@ -10,10 +10,13 @@
   - name: install base packages
     block:
     - import_tasks: software/repositories.yml
+    # utilities contains git, which is important for further installations
+    - import_tasks: software/packages_utilities.yml
     - import_tasks: software/tmux.yml
+    - import_tasks: software/nvm.yml
+      tags: nvm
     - import_tasks: software/packages_dev_py.yml
     - import_tasks: software/packages_golang.yml
-    - import_tasks: software/packages_utilities.yml
     tags:
       - packages
 
