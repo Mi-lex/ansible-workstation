@@ -48,14 +48,14 @@
     append: yes
 
 - name: system setup | docker installation | install docker-compose
-  tags: docker-compsoe
+  tags: docker-compose
   get_url:
     url: https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64
     dest: /usr/local/bin/docker-compose
     mode: 'u+x,g+x'
 
 - name: system setup | docker installation | change file ownership, group and permissions
-  tags: docker-compsoe
+  tags: docker-compose
   ansible.builtin.file:
     path: /usr/local/bin/docker-compose
     owner: milex
