@@ -1,4 +1,4 @@
-- name: workstation | navi | ensure curl is installed
+- name: shell-setup | navi | ensure curl is installed
   tags:
     - navi
   apt:
@@ -14,7 +14,7 @@
     state: present
   when: ansible_os_family == "Debian"
 
-- name: workstation | navi | execute navi installation script
+- name: shell-setup | navi | execute navi installation script
   tags:
     - navi
   command: bash -c 'BIN_DIR=/usr/local/bin bash <(curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install)'

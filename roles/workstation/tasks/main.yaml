@@ -10,24 +10,6 @@
     tags:
       - package-manager
       - flatpak
-  - import_tasks: fzf.yaml
-  - import_tasks: zoxide.yaml
-  - import_tasks: navi.yaml
-  - import_tasks: dot-files.yaml
-    tags:
-      - system-setup
-      - dot-files
-      - dotfiles
-  - import_tasks: software/vscode.yaml
-    tags:
-      - system-setup
-      - vscode
-
-  - import_tasks: software/virtualbox.yaml
-  - import_tasks: software/oh-my-zsh.yaml
-  - import_tasks: software/slack.yaml
-  - import_tasks: software/flameshot.yaml
-  - import_tasks: software/vlc.yaml
 
   - name: Generate ssh keys
     include_tasks: 
@@ -41,6 +23,31 @@
     tags: always
 
   - import_tasks: github-ssh-keys/add-config.yml
+
+  - name: setup shell
+    block:
+    - import_tasks: shell-setup/fzf.yaml
+    - import_tasks: shell-setup/zoxide.yaml
+    - import_tasks: shell-setup/navi.yaml
+    - import_tasks: shell-setup/dot-files.yaml
+      tags:
+        - system-setup
+        - dot-files
+        - dotfiles
+    - import_tasks: shell-setup/oh-my-zsh.yaml
+    tags: shell-setup
+
+  - name: install workstation software
+    block:
+    - import_tasks: software/virtualbox.yaml
+    - import_tasks: software/slack.yaml
+    - import_tasks: software/flameshot.yaml
+    - import_tasks: software/vlc.yaml
+    - import_tasks: software/vscode.yaml
+      tags:
+        - vscode
+    tags:
+    - software
 
   rescue:
   - set_fact: task_failed=true

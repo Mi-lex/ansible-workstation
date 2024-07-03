@@ -1,17 +1,16 @@
-# Desktop
-# Note: Some of these packages are disabled, they depend on tracker which is currently being disabled
 - name: gnome | packages | install gnome packages
   tags: 
   - gnome
   - gnome-packages
-  - workstation
   package:
     name:
       - gnome-tweaks
     state: present
 
 - name: gnome | packages | install flatpak support in gnome software
-  tags: gnome,gnome-packages
+  tags: 
+  - gnome
+  - gnome-packages
   package:
     name:
     - gnome-software-plugin-flatpak

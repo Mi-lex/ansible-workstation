@@ -1,14 +1,21 @@
+- name: dot-files | ensure git is installed
+  package:
+    name: git
+    state: present
+  when: ansible_os_family == "Debian"
+
 # Add bare repo
-- name: workstation | Copy dot files
+- name: dot-files | Copy dot files
   git:
     repo: "{{ dotfiles_repo }}"
     bare: true
     dest: "{{ milex_home_dir }}/.dotfiles"
     depth: 1
+    accept_hostkey: yes
   become: yes
   become_user: milex
 
-- name: workstation | copy .gitignore
+- name: dot-files | copy .gitignore
   copy:
     src: dot-files-setup/.gitignore
     dest: "{{ milex_home_dir }}/.gitignore"
@@ -16,11 +23,12 @@
     group: root
     mode: 0640
 
-- name: workstation | checkout dot files
+- name: dot-files | checkout dot files
   shell: |
     alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
     cd ~
     config checkout
+    config config --local status.showUntrackedFiles no
   args:
     creates: "{{ milex_home_dir }}/README.md"
   become: yes

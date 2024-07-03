@@ -1,0 +1,7 @@
+- name: shell-setup | software | fzf
+  tags:
+  - fzf
+  package:
+    state: latest
+    name: 
+      - fzf

@@ -1,10 +1,6 @@
 
-
-# Desktop
-# Note: Some of these packages are disabled, they depend on tracker which is currently being disabled
 - name: workstation | install zsh
   tags:
-    - workstation
     - oh-my-zsh
     - zsh
   package:
@@ -13,7 +9,6 @@
 
 - name: workstation | install Oh My Zsh
   tags:
-    - workstation
     - oh-my-zsh
   git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
@@ -24,7 +19,6 @@
 
 - name: workstation | Override powerline fonts package name for Debian.
   tags:
-    - workstation
     - oh-my-zsh
   ansible.builtin.set_fact:
     powerlinefonts: fonts-powerline
@@ -32,7 +26,6 @@
 
 - name: workstation | install powerline fonts
   tags:
-    - workstation
     - oh-my-zsh
     - powerline-fonts
   package:
@@ -41,7 +34,6 @@
 
 - name: workstation | install zsh-autosuggestions plugin
   tags:
-    - workstation
     - oh-my-zsh
     - zsh-plugin-augosuggestion
   git:
@@ -53,7 +45,6 @@
 
 - name: workstation | install zsh-completions plugin
   tags:
-    - workstation
     - oh-my-zsh
     - zsh-plugin-completions
   git:
@@ -65,7 +56,6 @@
 
 - name: workstation | install zsh-syntax-highlighting plugin
   tags:
-    - workstation
     - oh-my-zsh
     - zsh-plugin-highlighting
   git:
@@ -77,7 +67,6 @@
 
 - name: workstation | install Powerline10k theme
   tags:
-    - workstation
     - oh-my-zsh
     - zsh-theme-powerline10k
   git:
@@ -89,7 +78,6 @@
   
 - name: workstation | change user shell to zsh 
   tags:
-    - workstation
     - oh-my-zsh
     - user-shell
   become: true

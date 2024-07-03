@@ -1,0 +1,8 @@
+- name: shell-setup | software | zoxide
+  tags:
+  - system-setup
+  - zoxide
+  package:
+    state: latest
+    name: 
+      - zoxide
